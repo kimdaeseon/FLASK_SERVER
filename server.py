@@ -199,4 +199,4 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port="3000")
+    app.run(host="ec2-3-19-56-231.us-east-2.compute.amazonaws.com", port="80")
