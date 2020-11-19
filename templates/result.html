@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>마스크를 써야 할까요?</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<body  class='mid-alli'>
+    <div>
+        <div class='make-block'>
+            <h1>마스크를 써야 할까요?</h1>
+            <p>
+                미세먼지 농도를 기반으로 외출/마스크착용을 추천해주는 서비스</br>
+            </p>
+            <div>
+                <div class='col-block'>
+                    <p class='start' style="font-weight:bold">
+                        출발지의 미세먼지 농도
+                    </p>
+                        pm10 : {{pm10s}}, 미세먼지 상태 : {{pm10sValue}}</br>
+                        pm25 : {{pm25s}}, 초미세먼지 상태 : {{pm25sValue}}
+                </div>
+                <div class='col-block'>
+                    <p class='destination' style="font-weight:bold">
+                        도착지의 미세먼지 농도
+                    </p>
+                        pm10 : {{pm10d}}, 미세먼지 상태 : {{pm10dValue}}</br>
+                        pm25 : {{pm25d}}, 초미세먼지 상태 : {{pm25dValue}}
+                </div>
+            </div>
+            <div>
+                <p class ='result'>
+                    </br>{{result}}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
