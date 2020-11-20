@@ -38,19 +38,24 @@ def measuringStation(tmX, tmY):
     itemsTag = bodyTag.find("items")
     itemTag = itemsTag.findall("item")
     length = len(itemTag)
-    station = ""
+    station = []
+    result = []
     distance = float(1000000.0)
     for i in range(0, length):
         tempStation = itemTag[i].find("stationName").text
         tempDistance = itemTag[i].find("tm").text
-        if float(tempDistance) < float(distance):
-            distance = tempDistance
-            station = tempStation
-
+        result.append((float(tempDistance), tempStation))
+        # if float(tempDistance) < float(distance):
+        #     distance = tempDistance
+        #     station = tempStation
+    station = sorted(result, key=lambda stati: stati[0])
     return station
 
 
-def fineDust(city):
+def fineDust(station, i):
+    if i >= len(station):
+        return 0, 0
+    city = urllib.parse.quote(station[i][1])
     url = f'http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName={city}&dataTerm=month&pageNo=1&numOfRows=10&ServiceKey=XwB4AI%2FK2JzvYUajkPyxGJ9IscGR%2FW0lrSTGfuWv9s7T4vWQonWulhbZaBQ0x78CHgl7SBF43dkfNfYsUnd1Hg%3D%3D&ver=1.3'
     webpage = requests.get(url)
     root = ElementTree.fromstring(webpage.text)
@@ -59,7 +64,9 @@ def fineDust(city):
     itemTag = itemsTag.find("item")
     pm10 = itemTag.find("pm10Value").text
     pm25 = itemTag.find("pm25Value").text
-
+    if pm10 == '-' or pm25 == '-':
+        pm10, pm25 = fineDust(station, i+1)
+    print(station[i][1])
     return pm10, pm25
 
 
@@ -185,9 +192,9 @@ def result():
     print(tmX2, tmY2)
     station1 = measuringStation(tmX1, tmY1)
     station2 = measuringStation(tmX2, tmY2)
-    print(station1, station2)
-    pm10s, pm25s = fineDust(urllib.parse.quote(station1))
-    pm10d, pm25d = fineDust(urllib.parse.quote(station2))
+    print(station1[0][1], station2[0][1])
+    pm10s, pm25s = fineDust(station1, 0)
+    pm10d, pm25d = fineDust(station2, 0)
     result10s, result25s = check(float(pm10s), float(pm25s))
     result10d, result25d = check(float(pm10d), float(pm25d))
     s1, s2, d1, d2 = convertToString(
@@ -198,5 +205,5 @@ def result():
     return render_template('result.html', pm10s=pm10s, pm25s=pm25s, pm10d=pm10d, pm25d=pm25d, pm10sValue=s1, pm25sValue=s2, pm10dValue=d1, pm25dValue=d2, result=makeResult(result10s, result25s, result10d, result25d))
 
 
-if __name__ == "__main__":
-    app.run(host="ec2-3-19-56-231.us-east-2.compute.amazonaws.com", port="80")
+# if __name__ == "__main__":
+#     app.run(host="127.0.0.1", port="3000")
