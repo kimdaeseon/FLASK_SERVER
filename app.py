@@ -46,5 +46,5 @@ def result():
     return render_template('result.html', pm10s=pm10s, pm25s=pm25s, pm10d=pm10d, pm25d=pm25d, pm10sValue=s1, pm25sValue=s2, pm10dValue=d1, pm25dValue=d2, result=finedust.makeResult(result10s, result25s, result10d, result25d))
 
 
-if __name__ == "__main__":
-    app.run(host="127.0.0.1", port="3000")
+# if __name__ == "__main__":
+#     app.run(host="127.0.0.1", port="3000")
