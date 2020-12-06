@@ -21,10 +21,10 @@
         <div class='make-block'>
             <form action='{{ url_for('static', filename='../result') }}', method="POST">
                 <p>출발지 (시/구/동)</p>
-                <input name ="sigudong1" type='text' class="inputType">
+                <input name ="sigudong1" pattern = '[가-힣|]+\s[가-힣|]+\s[가-힣|]+(\s[가-힣|]+){0,1}' type='text' class="inputType">
                 </input>
                 <p>도착지 (시/구/동)</p>
-                <input name ="sigudong2" type='text' class="inputType">
+                <input name ="sigudong2" pattern = '[가-힣|]+\s[가-힣|]+\s[가-힣|]+(\s[가-힣|]+){0,1}' type='text' class="inputType">
                 </input>
                 </br>
                 <input type='submit' class='btn btn-success' id='inli'>
