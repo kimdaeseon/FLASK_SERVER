@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import os
 import finedust
 import urllib
@@ -28,8 +28,14 @@ def result():
         do2, si2, dong2 = arr2[0], arr2[1] + " " + arr2[2], arr2[3]
 
     tmX1, tmY1 = finedust.tmLocation(do1, si1, urllib.parse.quote(dong1))
+    if tmX1 == 0 and tmY1 == 0:
+        string = '정확한 출발지 정보를 입력해주세요'
+        return render_template('main.html', alert=string)
     print(tmX1, tmY1)
     tmX2, tmY2 = finedust.tmLocation(do2, si2, urllib.parse.quote(dong2))
+    if tmX2 == 0 and tmY2 == 0:
+        string = '정확한 목적지 정보를 입력해주세요'
+        return render_template('main.html', alert=string)
     print(tmX2, tmY2)
     station1 = finedust.measuringStation(tmX1, tmY1)
     station2 = finedust.measuringStation(tmX2, tmY2)

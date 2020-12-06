@@ -12,15 +12,20 @@ def tmLocation(city, gu, dong):
     itemTag = itemsTag.findall("item")
     length = len(itemTag)
     print(webpage.text)
-    for i in range(0, length):
-        si = itemTag[i].find("sidoName").text
-        sgg = itemTag[i].find("sggName").text
-        tmX = itemTag[i].find("tmX").text
-        tmY = itemTag[i].find("tmY").text
-        if gu in sgg:
-            break
-        else:
-            tmX, tmY = 0, 0
+    tmX, tmY = 0, 0
+    try:
+        for i in range(0, length):
+            si = itemTag[i].find("sidoName").text
+            sgg = itemTag[i].find("sggName").text
+            tmX = itemTag[i].find("tmX").text
+            tmY = itemTag[i].find("tmY").text
+            if gu in sgg:
+                break
+            else:
+                tmX, tmY = 0, 0
+    except:
+        print("예외발생!")
+        return 0, 0
 
     return tmX, tmY
 
