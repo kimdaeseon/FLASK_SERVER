@@ -1,0 +1,23 @@
+#inli{
+  margin-top: 50px;
+}
+.inputType{
+  size : 100;
+}
+.mid-alli{
+  display : block;
+  text-align: center;
+  padding : 50px;
+  width: 800px;
+  border: #000 solid 1px;
+  margin : 50px auto;
+  height: 400px;
+}
+.make-block{
+  display: block;
+  text-align: center;
+}
+.col-block{
+  display: inline-block;
+  width: 300px;
+}
